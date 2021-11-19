@@ -1,0 +1,17 @@
+<?php if (isset($_SESSION['message']['success']) && count($_SESSION['message']['success'])>0) {
+    foreach($_SESSION['message']['success'] as $mess){
+?>
+    <div class="alert alert-success">
+        <?php echo $mess; ?>
+    </div>
+<?php
+}} elseif (isset($_SESSION['message']['err']) && count($_SESSION['message']['err'])>0) {
+    foreach($_SESSION['message']['err'] as $mess){
+?>
+    <div class="alert alert-danger">
+        <?php echo $mess; ?>
+    </div>
+<?php
+}}
+?>
+<?php unset($_SESSION['message']);?>

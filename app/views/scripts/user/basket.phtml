@@ -1,0 +1,72 @@
+
+<div class="col-md-9">
+    <table class='table table-borderless'>
+        <thead>
+            <tr>
+                <th>Affiche</th>
+                <th>Nom</th>
+                <th>Prix unitaire</th>
+                <th>Quantité</th>
+            </tr>
+        </thead>
+        <tbody>
+<?php
+if(isset($_SESSION['basket']) && $_SESSION['basket'] != ''){
+    foreach ($this->basket as $basket) {
+        $total = $basket['movie']->price * $basket['quantity'];
+?>
+            <tr class="tr-<?php echo $basket['movie']->id;?>">
+                <td class='img-container'><img class='image-movie' src="./images/film/<?php echo $basket['movie']->image;?>" alt="affiche du film <?php echo $basket['movie']->image;?>"></td>
+                <td ><?php echo $basket['movie']->title;?></td>
+                <td><?php echo $basket['movie']->price;?></td>
+                <td><button data-id="<?php echo $basket['movie']->id;?>" class="btn btn-primary btn-sm fas fa-minus"></button><span class="qty quantity_<?php echo $basket['movie']->id;?>"> <?php echo $basket['quantity'];?> </span><button data-id="<?php echo $basket['movie']->id;?>" class="btn btn-primary btn-sm fas fa-plus"></button></td>
+            </tr>
+<?php
+    }
+} else {
+?>
+            <tr><td>Votre panier est vide</td></tr>
+<?php
+}
+?>
+        </tbody>
+    </table>
+</div>
+
+
+<script type="text/javascript">
+    $('.fa-plus').click(function(){
+        var id = $(this).data('id');
+        $.ajax({
+            method: 'POST',
+            url: 'addbasket',
+            data: {
+                add: id
+            }
+        })
+        .done(function(msg) {
+            var quantity = parseInt($('.quantity_'+id).html(), 10);
+            $('.quantity_'+id).html(quantity + 1);
+        })
+    });
+
+    $('.fa-minus').click(function(){
+        var id = $(this).data('id');
+
+        $.ajax({
+            method: 'POST',
+            url: 'addbasket',
+            data: {
+                remove: id
+            }
+        })
+        .done(function(msg) {
+            var quantity = parseInt($('.quantity_'+id).html(), 10);
+            if(quantity - 1 == 0){
+                $('.tr-' + id).remove();
+            } else {
+                $('.quantity_'+id).html(quantity - 1);
+            }
+        })
+    });
+</script>

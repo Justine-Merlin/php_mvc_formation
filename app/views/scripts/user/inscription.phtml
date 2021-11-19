@@ -1,0 +1,54 @@
+<h1 class="text-center">Inscription</h1>
+
+<form action="/inscription" method="POST" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="name">Nom :</label>
+        <input type="text" id="name" name="name" class="form-control" placeholder="Entrez votre nom ...">
+        <?php 
+            if($this->errName != '')
+            echo "<div class='alert alert-danger'>$this->errName</div>";
+        ?>
+    </div>
+    <div class="form-group">
+        <label for="firstname">Prénom :</label>
+        <input type="text" id="firstname" name="firstname" class="form-control" placeholder="Entrez votre prénom ...">
+        <?php 
+            if($this->errFirstname != '')
+            echo "<div class='alert alert-danger'>$this->errFirstname</div>";
+        ?>
+    </div>
+    <div class="form-group">
+        <label for="login">Pseudo :</label>
+        <input type="text" id="login" name="login" class="form-control" placeholder="Entrez votre pseudo ...">
+        <?php 
+            if($this->errLogin != '')
+            echo "<div class='alert alert-danger'>$this->errLogin</div>";
+        ?>
+    </div>
+    <div class="form-group">
+        <label for="email">Email :</label>
+        <input type="text" id="email" name="email" class="form-control" placeholder="Entrez votre email ...">
+        <?php 
+            if($this->errEmail != '')
+            echo "<div class='alert alert-danger'>$this->errEmail</div>";
+        ?>
+    </div>
+    <div class="form-group">
+        <label for="first-password">Mot de passe :</label>
+        <input type="text" id="first-password" name="first-password" class="form-control" placeholder="Entrez votre mot de passe ...">
+    </div>
+    <div class="form-group">
+        <label for="password"></label>
+        <input type="text" id="password" name="password" class="form-control" placeholder="Entrez à nouveau votre mot de passe ...">
+        <?php 
+            if($this->errPassword != '')
+            echo "<div class='alert alert-danger'>$this->errPassword</div>";
+        ?>
+    </div>
+    <div class="form-group">
+        <label>Avatar :</label>
+        <input type="hidden" name="MAX_FILE_SIZE" value="20000000">
+        <input type="file" name="image" id="image" class="form-control" accept="image/png, image/jpeg" placeholder="Choisissez un avatar ...">
+    </div>
+    <input type="submit" class="btn btn-primary" value="S'inscrire">
+</form>

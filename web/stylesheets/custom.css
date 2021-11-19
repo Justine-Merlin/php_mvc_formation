@@ -1,0 +1,25 @@
+.form-control {
+    resize: none;
+    height: 25px;
+}
+.img-update {
+    max-height: 150px;
+}
+.table {
+    text-align: center;
+}
+.img-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.image-movie {
+    height: 125px;
+}
+.detail-img {
+    height: 300px;
+}
+
+.qty{
+    padding: 0 10px;
+}

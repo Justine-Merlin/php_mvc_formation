@@ -1,0 +1,33 @@
+<form action="<?php echo WEB_ROOT;?>/add/film" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <div class="form-group">
+            <label for="">Titre</label>
+            <input type="text" name="title" id="title" class="form-control">
+        </div>
+        <label>Nom de la catégorie</label>
+        <?php
+            foreach($this->cats as $categ){
+            echo    "<div class='checkbox'><input type='checkbox' id='$categ->id' name='categorie[]' value='$categ->id'>
+                <label for='$categ->id'>$categ->name</label></div>";
+            }
+        ?>
+    </div>
+    <div class="form-group">
+        <label for="">Date de sortie</label>
+        <input type="date" name="release" id="release" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="">Description</label>
+        <textarea type="textarea" name="description" id="description" class="form-control"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="">Prix</label>
+        <input type="number" name="price" id="price" class="form-control">
+    </div>
+    <div class="form-group">
+        <label>Image</label>
+        <input type="hidden" name="MAX_FILE_SIZE" value="20000000">
+        <input type="file" name="image" id="image" class="form-control" accept="image/png, image/jpeg">
+    </div>
+    <input type="submit" class="btn btn-primary">
+</form>

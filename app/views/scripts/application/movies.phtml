@@ -1,0 +1,96 @@
+    <div class="form-group">
+        <input class="form-control" type="text" id="research" name="research">
+        <button id="research-btn" class="btn btn-primary"><i class="fas fa-search"></i></button>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <ul>
+                <?php
+                foreach ($this->categs as $categorie) {
+                    echo "<li class='list-group-item'>
+                        <input type='checkbox' id='check_$categorie->id' value='$categorie->id'/>
+                        <a href='#'>
+                            <label for='check_$categorie->id'>$categorie->name</label>
+                        </a>
+                    </li>";
+                }
+                ?>
+            </ul>
+        </div>
+        <div class="col-md-9">
+            <table class='table table-borderless'>
+                <thead>
+                    <tr>
+                        <th>Affiche</th>
+                        <th>Nom</th>
+                        <th>Année</th>
+                        <th>Catégories</th>
+                        <th>Prix</th>
+                        <th>Modifier</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <?php
+                    foreach ($this->movies as $movie) {
+                        echo "
+                <tr>
+                    <td class='img-container'><img class='image-movie' src='./images/film/$movie->image' alt='affiche du film $movie->title'></img></td>
+                    <td><a href='/movie?id=$movie->id&$movie->slug'>$movie->title</a></td>
+                    <td>$movie->date_release</td>
+                    <td>";
+                        foreach ($movie->categs as $categ) {
+                            echo "<p>$categ->name</p>";
+                        }
+                        echo "</td>
+                    <td>$movie->price</td>
+                    <td>
+                        <a onclick='return confirm(\" Etes vous sûr de vouloir supprimer cette catégorie ?\")' href='?iddelete=$movie->id'>
+                            <i class='fas fa-trash'></i>
+                        </a>
+                        <a href='movie-update?id=$movie->id'>
+                            <i class='far fa-edit'></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>";
+                    }
+                    ?>
+            </table>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $('input[type="checkbox"]').click(function() {
+            var filter = new Array;
+            $('input[type="checkbox"]:checked').each(function() {
+                filter.push($(this).val());
+            });
+            $.ajax({
+                    method: "POST",
+                    url: "ajaxsearchcategories",
+                    data: {
+                        categories: filter
+                    }
+                })
+                .done(function(msg) {
+                    $('.col-md-9').html('');
+                    $('.col-md-9').html(msg);
+                });
+        });
+
+        document.getElementById('research-btn').addEventListener('click', (e) => {
+            var element = $('#research').val();
+            console.log(element);
+            $.ajax({
+                    method: "POST",
+                    url: "ajaxresearchmovie",
+                    data: {
+                        element: element
+                    }
+                })
+                .done(function(msg) {
+                    $('.col-md-9').html('');
+                    $('.col-md-9').html(msg);
+                });
+        })
+    </script>

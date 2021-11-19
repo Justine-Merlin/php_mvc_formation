@@ -1,0 +1,48 @@
+<div class="hide"></div>
+<div class="row marketing jumbotron">
+    <div class="col-lg-8">
+        <input type="hidden" id='movie-id' value="<?php echo $this->movie->id; ?>">
+        <h1 class="display-3"><?php echo $this->movie->title; ?></h1>
+        <p class="lead"><?php echo $this->movie->description; ?></p>
+        <p><label>Date de sortie : </label> <?php echo $this->movie->date_release; ?></p>
+        <p>
+            <label>Catégories : </label>
+        <?php
+        $ext = '';
+            foreach($this->movie_categs as $categ){
+                $ext.= $categ->name.", ";
+            }
+            $ext = substr($ext, 0, -2);
+            echo $ext;
+        ?>
+        </p>
+        <p><button class="basket btn btn-primary btn-sm" role="button">
+                <i class="fas fa-cart-plus"></i> <strong>Ajouter au panier</strong>
+            </button>
+        </p>
+    </div>
+    <div class="col-lg-3">
+        <img width="300" height="350" src="/images/film/<?php echo $this->movie->image; ?>"/>
+    </div>
+</div>
+<script type="text/javascript">
+    $('.basket').click(function(){
+        var id = $('#movie-id').val();
+        $.ajax({
+            method: 'POST',
+            url: 'addbasket',
+            data: {
+                add: id
+            }
+        })
+        .done(function(msg) {
+        if(msg > 0){
+            $('.hide').attr('class', 'alert alert-success');
+            $('.alert-success').html('Le film a été ajouté au panier avec succès !');
+        } else {
+            $('.hide').attr('class', 'alert alert-warning');
+            $('.alert-fail').html('Problème détecté');
+        }
+        })
+    });
+</script>

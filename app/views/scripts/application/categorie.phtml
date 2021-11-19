@@ -1,0 +1,28 @@
+
+<form action="/add/categorie-updated" method="post">
+    <div class="form-group">
+        <input type="hidden" name="id" id="id" value="<?php echo $this->categ->id ?>">
+        <label for="categorie">Nom de la catégorie</label>
+        <input type="text" id="categorie" name="categorie" class="form-control" value="<?php echo $this->categ->name ?>">
+    </div>
+    <input type="button" id="ajax" class="btn btn-primary" value="Modifier">
+</form>
+<script type="text/javascript">
+    $("#ajax").click(function() {
+        var cat = $('#categorie').val();
+        var id = $('#id').val();
+        $.ajax({
+            method: "GET",
+            url: "categorie-updated?categorie="+cat+'&id='+id
+        })
+    .done(function(msg) {
+        if(msg == 1){
+            $('.hide').attr('class', 'alert alert-success');
+            $('.alert-success').html('Changement effectué');
+        } else {
+            $('.hide').attr('class', 'alert alert-warning');
+            $('.alert-fail').html('Problème détecté');
+        }
+    })
+    })
+</script>

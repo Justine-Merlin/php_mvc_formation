@@ -1,0 +1,39 @@
+<?php
+echo "<table class='table table-borderless'>
+    <thead>
+        <tr>
+            <th>Affiche</th>
+            <th>Nom</th>
+            <th>Année</th>
+            <th>Catégories</th>
+            <th>Prix</th>
+            <th>Modifier</th>
+        </tr>
+    </thead>
+    <tbody>";
+
+foreach ($this->movies as $movie) {
+    echo "
+        <tr>
+            <td class='img-container'><img class='image-movie' src='./images/film/$movie->image' alt='affiche du film $movie->title'></img></td>
+            <td><a href='/movie?id=$movie->id&$movie->slug'>$movie->title</a></td>
+            <td>$movie->date_release</td>
+            <td>";
+            foreach($this->categs[$movie->id] as $categ){
+                echo $categ->name;
+            }
+    echo "</td>
+            <td>$movie->price</td>
+            <td>
+                <a onclick='return confirm(\" Etes vous sûr de vouloir supprimer cette catégorie ?\")' href='?iddelete=$movie->id'>
+                    <i class='fas fa-trash'></i>
+                </a>
+                <a href='movie-update?id=$movie->id'>
+                    <i class='far fa-edit'></i>
+                </a>
+            </td>
+        </tr>
+    </tbody>";
+}
+?>
+</table>

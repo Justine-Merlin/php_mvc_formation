@@ -1,0 +1,41 @@
+<form action="/movie-updated" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <input type="hidden" name="id" value="<?php echo $this->movie->id ;?>">
+        <div class="form-group">
+            <label for="">Titre</label>
+            <input type="text" name="title" id="title" class="form-control" value="<?php echo $this->movie->title ;?>">
+        </div>
+        <label>Nom de la catégorie</label>
+        <?php
+            foreach($this->cats as $categ){
+                $attr ='';
+                foreach($this->movie_categs as $movie_categ){
+                    if($movie_categ->id == $categ->id){
+                        $attr= 'checked';
+                    }}
+                    echo    "<div class='checkbox'><input $attr type='checkbox' id='$categ->id' name='categorie[]' value='$categ->id'>
+                        <label for='$categ->id'>$categ->name</label></div>";
+            }
+        ?>
+    </div>
+    <div class="form-group">
+        <label for="">Date de sortie</label>
+        <input type="date" name="release" id="release" class="form-control" value="<?php echo $this->movie->date_release ;?>">
+    </div>
+    <div class="form-group">
+        <label for="">Description</label>
+        <textarea type="textarea" name="description" id="description" class="form-control" ><?php echo $this->movie->description ;?></textarea>
+    </div>
+    <div class="form-group">
+        <label for="">Prix</label>
+        <input type="number" name="price" id="price" class="form-control" value="<?php echo $this->movie->price ;?>">
+    </div>
+    <div class="form-group">
+        <label>Image</label>
+        <input type="hidden" name="text-img" value="<?php echo $this->movie->image ;?>">
+        <img class="img-update" src="./images/film/<?php echo $this->movie->image ;?>" alt="image du film <?php echo $this->movie->title ;?>">
+        <input type="hidden" name="MAX_FILE_SIZE" value="20000000">
+        <input type="file" name="image" id="image" class="form-control" accept="image/png, image/jpeg">
+    </div>
+    <input type="submit" class="btn btn-primary">
+</form>
